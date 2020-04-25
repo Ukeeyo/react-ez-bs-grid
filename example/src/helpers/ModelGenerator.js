@@ -68,8 +68,8 @@ const generateImageRow = (numImages, padding) => {
 	for (var i = 0; i < numImages; i++) {
 		columns.push({
 			type: 'image',
-			src: `https://placekitten.com/300/300?image=${i}`,
 			props: {
+				src: `https://placekitten.com/300/300?image=${i}`,
 				roundedCircle: true,
 			},
 			colProps: {

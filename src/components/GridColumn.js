@@ -27,7 +27,7 @@ const GridColumn = (props) => {
     case 'image':
       return (
         <Col {...colModel.colProps}>
-          <Image src={colModel.src} {...colModel.props} />
+          <Image {...colModel.props} />
         </Col>
       )
     case 'paragraph':
