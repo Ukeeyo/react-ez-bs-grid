@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import GridRow from './GridRow'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 class EZBSG extends React.Component {
   render() {
@@ -26,9 +26,8 @@ class EZBSG extends React.Component {
 
 EZBSG.propTypes = {
   model: PropTypes.shape({
-    rows: PropTypes.array,
-  }).isRequired,
-};
-
+    rows: PropTypes.array
+  }).isRequired
+}
 
 export default EZBSG

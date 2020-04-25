@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Image } from 'react-bootstrap'
 import Headings from './Headings'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 class GridRow extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class GridRow extends React.Component {
           key={`tile-${i}`}
           {...tileModel.props}
         >
-          <Headings model={tileModel}/>
+          <Headings model={tileModel} />
           {tileModel.topText ? (
             <Row {...tileModel.topText.containerProps}>
               {tileModel.topText.content}
@@ -46,8 +46,8 @@ class GridRow extends React.Component {
 
 GridRow.propTypes = {
   rowModel: PropTypes.shape({
-    columns: PropTypes.array,
-  }).isRequired,
-};
+    columns: PropTypes.array
+  }).isRequired
+}
 
 export default GridRow
