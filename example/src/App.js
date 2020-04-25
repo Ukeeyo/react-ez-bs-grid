@@ -1,10 +1,11 @@
 import React from 'react'
+import { EZBSG } from 'react-ez-bs-grid'
+import ModelGenerator from './helpers/ModelGenerator'
 
-import { ExampleComponent } from 'react-ez-bs-grid'
-import 'react-ez-bs-grid/dist/index.css'
+const model = ModelGenerator.generateGridModel()
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <EZBSG model={model} />
 }
 
 export default App
