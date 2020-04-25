@@ -1,52 +1,20 @@
 import React from 'react'
-import { Row, Col, Image } from 'react-bootstrap'
-import Headings from './Headings'
+import { Row } from 'react-bootstrap'
+import GridColumn from './GridColumn'
 import PropTypes from 'prop-types'
 
-class GridRow extends React.Component {
-  render() {
-    const { rowModel } = this.props
-    const cols = rowModel.columns.map((tileModel, i) => {
-      return (
-        <Col
-          style={{ ...tileModel.style }}
-          key={`tile-${i}`}
-          {...tileModel.props}
-        >
-          <Headings model={tileModel} />
-          {tileModel.topText ? (
-            <Row {...tileModel.topText.containerProps}>
-              {tileModel.topText.content}
-            </Row>
-          ) : null}
-          {tileModel.image ? (
-            <Row {...tileModel.image.containerProps}>
-              <Image src={tileModel.image.src} {...tileModel.image.props} />
-            </Row>
-          ) : null}
-          {tileModel.paragraph ? (
-            <Row {...tileModel.paragraph.containerProps}>
-              <p {...tileModel.paragraph.props}>
-                {tileModel.paragraph.content}
-              </p>
-            </Row>
-          ) : null}
-          {tileModel.bottomText ? (
-            <Row {...tileModel.bottomText.containerProps}>
-              {tileModel.bottomText.content}
-            </Row>
-          ) : null}
-        </Col>
-      )
-    })
+const GridRow = (props) => {
+  const { rowModel } = props
+  const cols = rowModel.columns.map((colModel, i) => {
+    return <GridColumn colModel={colModel} key={i} />
+  })
 
-    return <Row {...rowModel.props}>{cols}</Row>
-  }
+  return <Row {...rowModel.props}>{cols}</Row>
 }
 
 GridRow.propTypes = {
   rowModel: PropTypes.shape({
-    columns: PropTypes.array
+    columns: PropTypes.array.isRequired
   }).isRequired
 }
 

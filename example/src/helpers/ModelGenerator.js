@@ -1,7 +1,6 @@
-import { LoremIpsum } from "lorem-ipsum";
+// This is a helper utility to help demonstrate how the model can be created
 
-const bgmax = 1
-const bgmin = 0.3
+import { LoremIpsum } from "lorem-ipsum";
 const lorem = new LoremIpsum({
 	sentencesPerParagraph: {
 		max: 8,
@@ -13,164 +12,36 @@ const lorem = new LoremIpsum({
 	}
 });
 
+const randomBackground = () => {
+	const bgmax = 1
+	const bgmin = 0.3
+	return `rgba(0, 0, 0, ${Math.random() * (bgmax - bgmin) + bgmin})`
+}
+
 const generateSectionHeaderRow = (title) => {
-	const row = [{
-		style: {
-			backgroundColor: `rgba(0, 0, 0, 0.9`,
-			color: "white",
-			fontSize: "40px",
-			padding: 15
+	const columns = [{
+		type: 'text',
+		colProps: {
+			style: {
+				backgroundColor: `rgba(0, 0, 0, 0.9`,
+				color: "white",
+				fontSize: "40px",
+				padding: 15
+			},
+			className: "text-center"
 		},
-		topText: {
-			content: title,
-			containerProps: {
-				className: "justify-content-center"
-			}
-		},
+		content: title,
 	}];
 
-	return { columns: row }
-}
-
-const generateCatTile = (params) => {
-	return {
-		style: {
-			backgroundColor: `rgba(0, 0, 0, ${Math.random() * (bgmax - bgmin) + bgmin})`,
-			color: "white",
-			fontSize: "25px",
-			padding: 15
-		},
-		topText: {
-			content: params.topText,
-			containerProps: {
-				className: "justify-content-center"
-			}
-		},
-		image: {
-			src: params.image,
-			containerProps: {
-				className: "justify-content-center"
-			},
-			props: {
-				roundedCircle: true,
-				style: {
-					height: 100,
-					width: 100
-				}
-			}
-		},
-		bottomText: {
-			content: params.bottomText,
-			containerProps: {
-				className: "justify-content-center"
-			}
-		}
-	}
-}
-
-const generateCatRow = (rowNum, numCols) => {
-	const row = [];
-	for (var i = 0; i < numCols; i++) {
-		row.push(generateCatTile({
-			topText: `Top ${rowNum}-${i}`,
-			image: `https://placekitten.com/100/100?image=${rowNum}${i}`,
-			bottomText: `Bottom ${rowNum}-${i}`
-		}));
-	}
-	return { columns: row };
-}
-
-const generateParagraphRow = () => {
-	const row = [
-	{
-		style: {
-			backgroundColor: `rgba(0, 0, 0, ${Math.random() * (bgmax - bgmin) + bgmin})`,
-			color: 'white'
-		},
-		topText: {
-			content: 'Paragraph 1',
-			containerProps: {
-				className: "justify-content-center",
-				style: {
-					fontSize: "25px",
-				},
-			}
-		},
-		paragraph: {
-			content: lorem.generateParagraphs(4),
-			containerProps: {
-				style: {
-					marginLeft: 10,
-					marginRight: 10,
-				}
-			},
-			props: {
-				className: 'text-left'
-			}
-		}
-	},
-	{
-		style: {
-			backgroundColor: `rgba(0, 0, 0, ${Math.random() * (bgmax - bgmin) + bgmin})`,
-			color: 'white'
-		},
-		topText: {
-			content: 'Paragraph 2',
-			containerProps: {
-				className: "justify-content-center",
-				style: {
-					fontSize: "25px",
-				},
-			}
-		},
-		paragraph: {
-			content: lorem.generateParagraphs(4),
-			props: {
-				className: 'text-center'
-			}
-		}
-	},
-	{
-		style: {
-			backgroundColor: `rgba(0, 0, 0, ${Math.random() * (bgmax - bgmin) + bgmin})`,
-			color: 'white'
-		},
-		topText: {
-			content: 'Paragraph 3',
-			containerProps: {
-				className: "justify-content-center",
-				style: {
-					fontSize: "25px",
-				},
-			}
-		},
-		paragraph: {
-			content: lorem.generateParagraphs(4),
-			containerProps: {
-				style: {
-					marginLeft: 10,
-					marginRight: 10,
-				}
-			},
-			props: {
-				className: 'text-right'
-			}
-		}
-	},
-	]
-
-	return { columns: row };
+	return { columns }
 }
 
 const generateHeadingsRow = () => {
-	const row = [];
+	const columns = [];
 
 	for (let i = 1; i <= 6 ; i++) {
-		const tile = {};
-		tile[`h${i}`] = {
-			containerProps: {
-				className: 'row align-items-center'
-			},
+		const tile = {
+			type: `h${i}`,
 			content: `h${i}`,
 			props: {
 				style: {
@@ -178,14 +49,183 @@ const generateHeadingsRow = () => {
 				}
 			}
 		}
-		row.push(tile);
+		columns.push(tile);
 	}
 
 	return { 
 		props: {
-			className: 'align-items-center'
+			className: 'align-items-center',
+			style: {
+				backgroundColor: randomBackground()
+			}
 		},
-		columns: row 
+		columns 
+	};
+}
+
+const generateImageRow = (numImages, padding) => {
+	const columns = [];
+	for (var i = 0; i < numImages; i++) {
+		columns.push({
+			type: 'image',
+			src: `https://placekitten.com/300/300?image=${i}`,
+			props: {
+				roundedCircle: true,
+			},
+			colProps: {
+				style: {
+					paddingTop: padding,
+					paddingBottom: padding,
+					backgroundColor: randomBackground(),
+				}
+			}
+		})
+	}
+	return {
+		props: {
+			className: "text-center",
+		},
+		columns
+	}
+}
+
+const generateParagraphRow = () => {
+	const columns = [];
+
+	columns.push({
+		type: 'paragraph',
+		content: lorem.generateParagraphs(4),
+		props: {
+			className: 'text-left'
+		},
+		colProps: {
+			style: {
+			backgroundColor: randomBackground(),
+			color: 'white'
+		},
+		}
+	})
+
+	columns.push({
+		type: 'paragraph',
+		content: lorem.generateParagraphs(4),
+		props: {
+			className: 'text-center'
+		},
+		colProps: {
+			style: {
+			backgroundColor: randomBackground(),
+			color: 'white'
+		},
+		}
+	})
+
+	columns.push({
+		type: 'paragraph',
+		content: lorem.generateParagraphs(4),
+		props: {
+			className: 'text-right'
+		},
+		colProps: {
+			style: {
+			backgroundColor: randomBackground(),
+			color: 'white'
+		},
+		}
+	})
+
+	return { columns };
+}
+
+const generateSubGrid = (heading) => {
+	const subColumns = [];
+	subColumns.push(generateSectionHeaderRow(heading));
+	subColumns.push(generateImageRow(1, 0));
+	subColumns.push({
+		columns: [{
+			type: 'h5',
+			content: 'This way related content is grouped togeather',
+			props: {
+				className: 'text-left',
+					style: {
+						color: 'red'
+				}
+			}
+		}]
+	})
+	subColumns.push({ 
+		columns:[{
+					type: 'paragraph',
+					content: lorem.generateParagraphs(2),
+					props: {
+						className: 'text-left',
+						style: {
+							color: 'white'
+						}
+					}
+				}]
+	});
+
+	return subColumns;
+}
+
+const generateGridception = () => {
+	const columns = [];
+
+	
+	const model1 = {
+		rows: generateSubGrid('Grid 1')
+	}
+	const model2 = {
+		rows: generateSubGrid('Grid 2')
+	}
+	const model3 = {
+		rows: generateSubGrid('Grid 3')
+	}
+
+	columns.push({
+		type: 'grid',
+		colProps: {
+			style: {
+				padding: 0,
+			}
+		},
+		props: {
+			model: model1
+		}
+	})
+
+	columns.push({
+		type: 'grid',
+		colProps: {
+			style: {
+				padding: 0,
+			}
+		},
+		props: {
+			model: model2
+		}
+	})
+
+	columns.push({
+		type: 'grid',
+		colProps: {
+			style: {
+				padding: 0,
+			}
+		},
+		props: {
+			model: model3
+		}
+	})
+
+	return { 
+		props: {
+			style: {
+				backgroundColor: randomBackground(),
+			}
+		},
+		columns 
 	};
 }
 
@@ -193,14 +233,17 @@ export default {
 	generateGridModel: () => {
 		const rows = [];
 
-		rows.push(generateSectionHeaderRow('Cat Tiles'));
-		for (var i = 0; i < 2; i++) {
-			rows.push(generateCatRow(i, 4))
-		}
-		rows.push(generateSectionHeaderRow('Paragraph Tiles'));
+		rows.push(generateSectionHeaderRow('Image Tiles'));
+		rows.push(generateImageRow(3, 10));
+
+		rows.push(generateSectionHeaderRow('Paragraphs'));
 		rows.push(generateParagraphRow());
+
 		rows.push(generateSectionHeaderRow('Headings'));
 		rows.push(generateHeadingsRow());
+
+		rows.push(generateSectionHeaderRow('Grid-Ception!'));
+		rows.push(generateGridception());
 
 		return { 
 			rows, 

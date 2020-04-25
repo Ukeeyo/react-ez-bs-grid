@@ -26,7 +26,7 @@ class EZBSG extends React.Component {
 
 EZBSG.propTypes = {
   model: PropTypes.shape({
-    rows: PropTypes.array
+    rows: PropTypes.array.isRequired
   }).isRequired
 }
 
