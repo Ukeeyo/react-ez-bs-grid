@@ -247,9 +247,11 @@ export default {
 
 		return { 
 			rows, 
-			style: {
-				backgroundColor: 'purple' 
-			},
+			props: {
+				style: {
+					backgroundColor: 'purple' 
+				},
+			}
 		}
 	}
 }

@@ -22,7 +22,8 @@
     "test:watch": "react-scripts test --env=jsdom",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
-    "lint-fix": "eslint . --fix"
+    "lint-fix": "eslint . --fix",
+    "start-example": "npm run build && cd example && npm i && npm start"
   },
   "peerDependencies": {
     "react": "^16.0.0",

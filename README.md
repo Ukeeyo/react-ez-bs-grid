@@ -25,14 +25,18 @@ class Example extends Component {
 ```
 
 ## Model
-the model props should be shaped like the following JSON:
+If you want to start using EZBSG, you'll want to ensure that your JSON model is shaped correctly. By parsing this model, EZBSG translates the JSON directly to a responsive bootstrap grid
+#### the EZBSG component requires a model prop that is shaped like the following JSON:
 ```
 const exampleModel = {
 	rows: [/* array of row models */]
-	style: { ... } /* standard react component props are supported */
+	props: {
+		/* Props to be passed to the grid component */
+		style: { ... } /* standard react component props are supported */
+	}
 }
 ```
-Each row should be shaped like the following JSON:
+#### Each row should be shaped like the following JSON:
 ```
 const exampleRow = {
 	columns: [/* array of column models */]
@@ -42,7 +46,7 @@ const exampleRow = {
 	}
 }
 ```
-Each column should be shaped like the following JSON:
+#### Each column should be shaped like the following JSON:
 ```
 const exampleColumn= {
 	type: 'img' /* string defining the type of component to place inside of the column */
@@ -55,7 +59,7 @@ const exampleColumn= {
 	}
 }
 ```
-The final model should resemble this following:
+#### The final model should resemble this following:
 ```
 const model = {
 	"rows": [{
@@ -119,7 +123,28 @@ const model = {
 	}]
 }
 ```
+I know it seems like a lot of nested JSON, but I find it easier to manage once the model generation is automated. 
 
+## Supported Column Types
+Currently EZBSG supports the following types:
+|type|props|Description| 
+|--|--|--|
+| grid |accepts `model` prop (exactly like the regular grid)  | place a grid within a column to group related content responsively
+|text|`content` - The text to be displayed in the column| Simple text placed within the column|
+|image|see [Bootstrap Image documentation](https://react-bootstrap.netlify.app/components/images/#images)|creates a bootstrap `Image` component inside the column|
+|paragraph|`content` - the text to place inside of the `<p>` tag|Creates a `<p>` tag within the column
+|h1-h6|`content` - the text to place inside of the heading tag|Creates a heading tag within the column
+
+## Example
+There is an example application included in this repo, to run it simply run `npm run start-example` from the root directory.
+
+## Development
+The easiest way to make changes to this library is by running the sample application locally.
+
+Step 1: run `npm start` in the root of the repo
+Step 2: (In another window) change to the example directory `cd example`
+step 3: run `npm start` in the example directory
+step 4: Hack
 
 ## License
 
