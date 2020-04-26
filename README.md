@@ -5,7 +5,19 @@
 [![NPM](https://img.shields.io/npm/v/react-ez-bs-grid.svg)](https://www.npmjs.com/package/react-ez-bs-grid) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
+### This package requires react-bootstrap to function
+if you haven't already installed it:
+```bash
+npm install --save react-bootstrap bootstrap
+```
+You must also include a bootsrap style sheet in your application:
+[more info at the react-bootstrap documentation site](https://react-bootstrap.netlify.app/getting-started/introduction)
+```javascript
+{/* The following line can be included in your src/index.js or App.js file*/}
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+```
+Finally, you can install react-ez-bs-grid!
 ```bash
 npm install --save react-ez-bs-grid
 ```
@@ -27,7 +39,7 @@ class Example extends Component {
 ## Model
 If you want to start using EZBSG, you'll want to ensure that your JSON model is shaped correctly. By parsing this model, EZBSG translates the JSON directly to a responsive bootstrap grid
 #### the EZBSG component requires a model prop that is shaped like the following JSON:
-```
+```javascript
 const exampleModel = {
 	rows: [/* array of row models */]
 	props: {
@@ -37,7 +49,7 @@ const exampleModel = {
 }
 ```
 #### Each row should be shaped like the following JSON:
-```
+```javascript
 const exampleRow = {
 	columns: [/* array of column models */]
 	/* props for the bootstrap row component things like style can be passed here */
@@ -47,7 +59,7 @@ const exampleRow = {
 }
 ```
 #### Each column should be shaped like the following JSON:
-```
+```javascript
 const exampleColumn= {
 	type: 'img' /* string defining the type of component to place inside of the column */
 	/* All props for the defined component type should be added here */
@@ -60,7 +72,7 @@ const exampleColumn= {
 }
 ```
 #### The final model should resemble this following:
-```
+```javascript
 const model = {
 	"rows": [{
 		"columns": [{
@@ -123,7 +135,7 @@ const model = {
 	}]
 }
 ```
-I know it seems like a lot of nested JSON, but I find it easier to manage once the model generation is automated. 
+I know it seems like a lot of nested JSON, but I find it easier to manage once the model generation is automated. ;-)
 
 ## Supported Column Types
 Currently EZBSG supports the following types:

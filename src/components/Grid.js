@@ -12,10 +12,7 @@ class EZBSG extends React.Component {
     })
 
     return (
-      <Container
-        {...model.props}
-        fluid
-      >
+      <Container {...model.props} fluid>
         {rows}
       </Container>
     )
