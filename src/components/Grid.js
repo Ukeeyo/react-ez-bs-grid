@@ -6,17 +6,25 @@ import PropTypes from 'prop-types'
 class EZBSG extends React.Component {
   render() {
     const { model } = this.props
-    const rows = []
-    model.rows.forEach((row, i) => {
-      rows.push(<GridRow rowModel={row} key={`row-${i}`} />)
-    })
+    if (!model) {
+      return null
+    }
 
     return (
       <Container {...model.props} fluid>
-        {rows}
+        {getRows(model.rows)}
       </Container>
     )
   }
+}
+
+const getRows = (rows) => {
+  if (!rows) {
+    return null
+  }
+  return rows.map((row, i) => {
+    return <GridRow rowModel={row} key={`row-${i}`} />
+  })
 }
 
 EZBSG.propTypes = {
